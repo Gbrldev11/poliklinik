@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\FuncCall;
-use Symfony\Component\Mime\Part\MessagePart;
 
 class PasienController extends Controller
 {
-    Public function index()
+    public function index()
     {
-        $pasdiens = User::where('role', 'pasien',)->with('poli')->get();
-        return view('admin.pasien.index', compact('pasien'));
+        $pasiens = User::where('role', 'pasien')->with('poli')->get(); 
+        return view('admin.pasien.index', compact('pasiens'));
     }
 
     public function create()
@@ -21,7 +19,7 @@ class PasienController extends Controller
         return view('admin.pasien.create');
     }
 
-    public function store(request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -31,7 +29,7 @@ class PasienController extends Controller
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
-        
+
         User::create([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
@@ -42,22 +40,22 @@ class PasienController extends Controller
             'role' => 'pasien',
         ]);
 
-        return redirect()->route('pasien.index')->with('Message', 'Data Pasien Berhasil Ditambah')->with('type', 'success');
+        return redirect()->route('pasien.index')->with('message', 'Data Pasien berhasil di Tambah')->with('type', 'success');
     }
 
-    public Function edit(User $pasien)
+    public function edit(User $pasien)
     {
         return view('admin.pasien.edit', compact('pasien'));
     }
 
-    public function update(Request $request, user $pasien)
+    public function update(Request $request, User $pasien)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'no_ktp' => 'required|string|max:16|unique:users,no_ktp',
+            'no_ktp' => 'required|string|max:16|unique:users,no_ktp,' .$pasien->id,
             'no_hp' => 'required|string|max:15',
-            'email' => 'required|string|unique:users,email,' . $pasien->id,
+            'email' => 'required|string|unique:users,email,' .$pasien->id,
             'password' => 'nullable|string|min:6',
         ]);
 
@@ -66,24 +64,25 @@ class PasienController extends Controller
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->no_hp,
-            'email' => $request->email
+            'email' => $request->email,
         ];
 
-        if($request->filled('password')) {
+        if ($request->filled('password')) {
             $updateData['password'] = Hash::make($request->password);
         }
 
         $pasien->update($updateData);
 
         return redirect()->route('pasien.index')
-            ->with('message','Data Pasien Berhasil Diupdate')
-            ->with('type','success');
+            ->with('message', 'Data Pasien Berhasil Di Update')
+            ->with('type', 'success');
     }
 
-    public function destroy(user $pasien){
+    public function destroy(User $pasien)
+    {
         $pasien->delete();
         return redirect()->route('pasien.index')
-        ->with('message','Data Pasien Berhasil Dihpus')
-        ->with('type','success');
+            ->with('message', 'Data Pasien Berhasil Di Hapus')
+            ->with('type', 'success');
     }
 }
