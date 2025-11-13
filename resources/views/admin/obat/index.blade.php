@@ -29,7 +29,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                                
+                        {{-- Memastikan perulangan menggunakan $obats --}}
+                         @forelse ($obats as $obat) 
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $obat->nama_obat }}</td>
+                                <td>{{ $obat->kemasan }}</td>
+                                <td>Rp. {{ number_format($obat->harga, 0, ',', '.') }}</td>
+                                <td>
+                                    {{-- Aksi Edit --}}
+                                    <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+
+                                    {{-- Aksi Hapus --}}
+                                    <form action="{{ route('obat.destroy', $obat->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus obat ini?')">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">Belum ada Data Obat</td>
+                            </tr>
+                        @endforelse  
 
                         </tbody>
                     </table>
