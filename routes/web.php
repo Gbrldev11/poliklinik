@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JadwalPeriksaController;
+use App\Http\Controllers\Dokter\PeriksaPasienController;
+use App\Http\Controllers\Dokter\RiwayatPasienController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PoliController as PasienPoliController;
@@ -34,6 +36,12 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function()
 {   Route::get('/dashboard', function () {
         return view('dokter.dashboard');
     })->name('dokter.dashboard');
+    Route::resource('jadwal-periksa', JadwalPeriksaController::class);
+    Route::get('/periksa-pasien', [PeriksaPasienController::class, 'index'])->name('periksa-pasien.index');
+    Route::post('/periksa-pasien', [PeriksaPasienController::class, 'store'])->name('periksa-pasien.store');
+    Route::get('/periksa-pasien/{id}', [PeriksaPasienController::class, 'create'])->name('periksa-pasien.create');
+    Route::get('/riwayat-pasien', [RiwayatPasienController::class, 'index'])->name('dokter.riwayat-pasien.index');
+    Route::get('/riwayat-pasien/{id}', [RiwayatPasienController::class, 'show'])->name('dokter.riwayat-pasien.show');
 });
 
 Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->group(function()
@@ -41,5 +49,5 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->group(function()
         return view('pasien.dashboard');
     })->name('pasien.dashboard');
     Route::get('/daftar', [PasienPoliController::class, 'get'])->name('pasien.daftar');
-    Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('pasien.daftar.submit');
+    Route::post('/daftar', [PasienPoliController::class, 'create'])->name('pasien.daftar');
 });

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'alamat',
         'no_ktp',
         'no_hp',
@@ -56,5 +56,5 @@ class User extends Authenticatable
     }
     public function jadwalPeriksas(){
         return $this->hasMany(JadwalPeriksa::class, 'id_dokter');
-    }  
+    }
 }

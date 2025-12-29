@@ -13,9 +13,6 @@
     <label>Nama Lengkap:</label><br>
     <input type="text" name="nama" required><br>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br>
-
     <label>Alamat:</label><br>
     <input type="text" name="alamat" required><br>
 
@@ -24,6 +21,9 @@
 
     <label>No KTP:</label><br>
     <input type="text" name="no_ktp" required><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br>
 
     <label>Password:</label><br>
     <input type="password" name="password" required><br>

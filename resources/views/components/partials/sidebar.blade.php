@@ -34,10 +34,12 @@
                         <a href="{{ route('dokter.index') }}"
                            class="nav-link {{ request()->routeIs('dokter.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-md"></i>
-                            <p>Manajemen Dokter</p>
+                            <p>
+                                Manajemen Dokter
+                            </p>
                         </a>
                     </li>
-                    <li calass="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('pasien.index') }}"
                             class="nav-link {{ request()->routeIs('pasien.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-md"></i>
@@ -46,7 +48,7 @@
                             </p>
                         </a>
                     </li>
-                    <li calass="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('obat.index') }}"
                             class="nav-link {{ request()->routeIs('obat.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-md"></i>
@@ -81,10 +83,38 @@
                 <!-- ROLE DOKTER -->
                 @if (request()->is('dokter*'))
                     <li class="nav-item">
-                        <a href="{{ route('dokter.dashboard') }}" class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dokter.dashboard') }}" 
+                            class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
                                 Dashboard Dokter
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('jadwal-periksa.index') }}"
+                            class="nav-link {{ request()->routeIs('jadwal-periksa.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>
+                                Jadwal Periksa
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('periksa-pasien.index') }}"
+                            class="nav-link {{ request()->routeIs('periksa-pasien.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>
+                                Periksa Pasien
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('riwayat-pasien.index') }}"
+                            class="nav-link {{ request()->routeIs('riwayat-pasien.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>
+                                Riwayat Pasien
                             </p>
                         </a>
                     </li>
